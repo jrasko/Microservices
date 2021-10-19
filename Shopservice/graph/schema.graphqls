@@ -1,0 +1,27 @@
+type Query{
+	allProducts: [Product!]!
+	allShops: [Shop!]!
+	product(id: ID!): Product!
+	shop(id: ID!): Shop!
+}
+type Product{
+	id: ID!
+	name: String!
+	description: String
+	shops: [ProductInShop!]!
+	image: String!
+}
+scalar Coordinates
+type Shop{
+	id: ID!
+	name: String!
+	location: Coordinates
+	products: [ProductInShop!]!
+}
+type ProductInShop{
+	Product: Product!
+	Shop: Shop!
+	price: Float!
+	currency: String!
+	sales_unit: Int!
+}

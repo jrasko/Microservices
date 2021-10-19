@@ -1,0 +1,10 @@
+type Customer{
+	id: ID!
+	username: String!
+	firstname: String!
+	lastname: String!
+}
+type Query{
+	allCustomers: [Customer!]!
+	customer(id: ID!): Customer!
+}
