@@ -10,6 +10,8 @@ type Product struct {
 	Image       string           `json:"image"`
 }
 
+func (Product) IsEntity() {}
+
 type ProductInShop struct {
 	Product   *Product `json:"Product"`
 	Shop      *Shop    `json:"Shop"`
@@ -24,3 +26,5 @@ type Shop struct {
 	Location *string          `json:"location"`
 	Products []*ProductInShop `json:"products"`
 }
+
+func (Shop) IsEntity() {}

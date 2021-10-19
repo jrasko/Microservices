@@ -8,21 +8,39 @@ import (
 	"strconv"
 )
 
+type Customer struct {
+	ID string `json:"id"`
+}
+
+func (Customer) IsEntity() {}
+
 type Order struct {
-	ID         string           `json:"id"`
-	Time       string           `json:"time"`
-	State      OrderState       `json:"state"`
-	ShopID     string           `json:"shopID"`
-	CustomerID string           `json:"customerID"`
-	Products   []*OrderProducts `json:"products"`
+	ID       string           `json:"id"`
+	Time     string           `json:"time"`
+	State    OrderState       `json:"state"`
+	Shop     *Shop            `json:"shop"`
+	Customer *Customer        `json:"customer"`
+	Products []*OrderProducts `json:"products"`
 }
 
 type OrderProducts struct {
-	Order     *Order  `json:"order"`
-	ProductID string  `json:"productId"`
-	Quantity  int     `json:"quantity"`
-	Price     float64 `json:"price"`
+	Order    *Order   `json:"order"`
+	Product  *Product `json:"product"`
+	Quantity int      `json:"quantity"`
+	Price    float64  `json:"price"`
 }
+
+type Product struct {
+	ID string `json:"id"`
+}
+
+func (Product) IsEntity() {}
+
+type Shop struct {
+	ID string `json:"id"`
+}
+
+func (Shop) IsEntity() {}
 
 type OrderState string
 

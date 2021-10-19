@@ -1,29 +1,39 @@
-type Query {
-  allOrders: [Order!]!
-  order(id: ID!): Order!
+extend type Query {
+	allOrders: [Order!]!
+	order(id: ID!): Order!
+}
+
+extend type Product @key(fields: "id"){
+	id: ID! @external
+}
+extend type Shop @key(fields: "id"){
+	id: ID! @external
+}
+extend type Customer @key(fields: "id"){
+	id: ID! @external
 }
 
 scalar SWTime
 type Order{
-  id: ID!
-  time: SWTime!
-  state: OrderState!
-  shopID: ID!
-  customerID: ID!
-  products: [OrderProducts!]!
+	id: ID!
+	time: SWTime!
+	state: OrderState!
+	shop: Shop!
+	customer: Customer!
+	products: [OrderProducts!]!
 }
 
 type OrderProducts{
-  order: Order!
-  productId: ID!
-  quantity: Int!
-  price: Float!
+	order: Order!
+	product: Product!
+	quantity: Int!
+	price: Float!
 }
 
 enum OrderState{
-  ACCEPTED
-  IN_PROGRESS
-  DONE
-  READY_FOR_PICK_UP
-  RETRIEVED
+	ACCEPTED
+	IN_PROGRESS
+	DONE
+	READY_FOR_PICK_UP
+	RETRIEVED
 }

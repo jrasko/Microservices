@@ -8,3 +8,5 @@ type Customer struct {
 	Firstname string `json:"firstname"`
 	Lastname  string `json:"lastname"`
 }
+
+func (Customer) IsEntity() {}
