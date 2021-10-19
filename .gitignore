@@ -1,4 +1,7 @@
+/.run
 /.idea/
+*/node_modules/
 /Customerservice/Customerservice.iml
 /Shopservice/Shopservice.iml
 /Orderservice/Orderservice.iml
+/Gateway/Gateway.iml
