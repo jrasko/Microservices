@@ -1,0 +1,13 @@
+sources:
+  - name: Orderservice
+    handler:
+      graphql:
+        endpoint: http://localhost:4001/query
+  - name: Shopservice
+    handler:
+      graphql:
+        endpoint: http://localhost:4002/query
+  - name: Customerservice
+    handler:
+      graphql:
+        endpoint: http://localhost:4003/query
