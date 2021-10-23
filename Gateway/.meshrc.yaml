@@ -3,11 +3,70 @@ sources:
     handler:
       graphql:
         endpoint: http://localhost:4001/query
+    transforms:
+      - federation:
+          types:
+            - name: Query
+              config:
+                extend: true
+            - name: Product
+              config:
+                keyFields:
+                  - id
+                fields:
+                  - name: id
+                    config:
+                      external: true
+            - name: Shop
+              config:
+                keyFields:
+                  - id
+                fields:
+                  - name: id
+                    config:
+                      external: true
+            - name: Customer
+              config:
+                keyFields:
+                  - id
+                fields:
+                  - name: id
+                    config:
+                      external: true
   - name: Shopservice
     handler:
       graphql:
         endpoint: http://localhost:4002/query
+    transforms:
+      - federation:
+          types:
+            - name: Query
+              config:
+                extend: true
+            - name: Shop
+              config:
+                keyFields:
+                  - id
+            -  name: Product
+               config:
+                 keyFields:
+                   - id
+
+
   - name: Customerservice
     handler:
       graphql:
         endpoint: http://localhost:4003/query
+    transforms:
+      - federation:
+          types:
+            - name: Query
+              config:
+                extend: true
+
+            - name: Customer
+              config:
+                keyFields:
+                  - id
+serve:
+  playground: true
