@@ -10,19 +10,43 @@ import (
 	"fmt"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+func (r *queryResolver) AllCustomers(ctx context.Context) ([]*model.Customer, error) {
+	query := struct {
+		customers []*model.Customer
+	}{}
+	err := r.CustomerCli.Query(ctx, &query, nil)
+	return query.customers, err
+}
+
+func (r *queryResolver) Customer(ctx context.Context, id string) (*model.Customer, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+func (r *queryResolver) AllOrders(ctx context.Context) ([]*model.Order, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-// Mutation returns generated.MutationResolver implementation.
-func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
+func (r *queryResolver) Order(ctx context.Context, id string) (*model.Order, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) AllProducts(ctx context.Context) ([]*model.Product, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) AllShops(ctx context.Context) ([]*model.Shop, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) Product(ctx context.Context, id string) (*model.Product, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) Shop(ctx context.Context, id string) (*model.Shop, error) {
+	panic(fmt.Errorf("not implemented"))
+}
 
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
-type mutationResolver struct{ *Resolver }
 type queryResolver struct{ *Resolver }

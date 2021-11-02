@@ -3,6 +3,7 @@ package main
 import (
 	"Gatewayservice/graph"
 	"Gatewayservice/graph/generated"
+	"github.com/shurcooL/graphql"
 	"log"
 	"net/http"
 	"os"
@@ -19,7 +20,11 @@ func main() {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{
+		graphql.NewClient("http://localhost:4001/query", nil),
+		graphql.NewClient("http://localhost:4001/query", nil),
+		graphql.NewClient("http://localhost:4001/query", nil),
+	}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
