@@ -21,9 +21,9 @@ func main() {
 	}
 
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{
+		graphql.NewClient("http://localhost:4003/query", nil),
 		graphql.NewClient("http://localhost:4001/query", nil),
-		graphql.NewClient("http://localhost:4001/query", nil),
-		graphql.NewClient("http://localhost:4001/query", nil),
+		graphql.NewClient("http://localhost:4002/query", nil),
 	}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
