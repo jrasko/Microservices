@@ -27,6 +27,7 @@ func (r *queryResolver) Product(ctx context.Context, id string) (*model.Product,
 }
 
 func (r *queryResolver) Shop(ctx context.Context, id string) (*model.Shop, error) {
+
 	for _, shop := range r.Shops {
 		if shop.ID == id {
 			return shop, nil

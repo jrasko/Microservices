@@ -2,6 +2,8 @@ import {print} from 'graphql';
 import {introspectSchema} from '@graphql-tools/wrap';
 import fetch from 'node-fetch';
 import {stitchSchemas} from "@graphql-tools/stitch";
+import {delegateToSchema} from '@graphql-tools/delegate';
+
 
 const graphqlApis = [
     {
@@ -40,6 +42,61 @@ for (let i = 0; i < executorFunctions.length; i++) {
     )
 }
 export default await stitchSchemas({
-    subschemas: subschemas
+    subschemas: subschemas,
+    typeDefs: `
+    extend type Order{
+        customer: Customer!
+        shop: Shop!
+    }
+    extend type OrderProducts{
+        product: Product!
+    }
+    `,
+    resolvers: {
+        Order: {
+            customer: {
+                selectionSet: `{ customerID }`,
+                resolve(customer, args, context, info) {
+                    return delegateToSchema({
+                        schema: subschemas[2],
+                        operation: 'query',
+                        fieldName: 'customer',
+                        args: {id: "00001"},
+                        context,
+                        info,
+                    });
+                }
+            },
+            shop: {
+                selectionSet: `{ shopID }`,
+                resolve(shop, args, context, info) {
+                    return delegateToSchema({
+                        schema: subschemas[1],
+                        operation: 'query',
+                        fieldName: 'shop',
+                        args: {id: shop.shopID},
+                        context,
+                        info,
+                    });
+                }
+            }
+        },
+        OrderProducts: {
+            product:{
+                selectionSet: `{ productId }`,
+                resolve(product, args, context, info) {
+                    return delegateToSchema({
+                        schema: subschemas[1],
+                        operation: 'query',
+                        fieldName: 'product',
+                        args: {id: product.productId},
+                        context,
+                        info,
+                    });
+                }
+            }
+        }
+    }
+
 })
 
