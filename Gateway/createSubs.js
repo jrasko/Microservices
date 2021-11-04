@@ -82,7 +82,7 @@ export default await stitchSchemas({
             }
         },
         OrderProducts: {
-            product:{
+            product: {
                 selectionSet: `{ productId }`,
                 resolve(product, args, context, info) {
                     return delegateToSchema({
