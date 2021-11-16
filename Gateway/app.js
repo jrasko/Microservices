@@ -1,5 +1,5 @@
 const express = require('express');
-const {ApolloServer} = require('apollo-server-express');
+const {ApolloServer} = require('apollo-server');
 const {ApolloGateway} = require('@apollo/gateway');
 const client = require('prom-client');
 client.collectDefaultMetrics()
@@ -9,7 +9,6 @@ app.get('/metrics', (req, res) => {
     res.set('Content-Type', client.register.contentType)
     client.register.metrics().then((str) => {
             res.end(str)
-
         }
     )
 })
@@ -28,11 +27,11 @@ const server = new ApolloServer({
         subscriptions: false,
     }
 );
-server.start().then(() => {
-        server.applyMiddleware({app})
-    }
-)
 
-app.listen({port: 4000}, () => {
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+app.listen({port: 5000}, () => {
+    console.log(`🚀 Metrics started`);
+});
+
+server.listen().then(({ url }) => {
+    console.log(`🚀 Server ready at ${url}`);
 });
