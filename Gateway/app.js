@@ -1,7 +1,7 @@
-const express = require('express');
+import express from 'express';
 import { ApolloServer } from 'apollo-server'
 import gateway from './createSubs.js'
-const client = require('prom-client')
+import client from 'prom-client'
 client.collectDefaultMetrics()
 
 const app = express();
