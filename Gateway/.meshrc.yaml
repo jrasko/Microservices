@@ -9,30 +9,6 @@ sources:
             - name: Query
               config:
                 extend: true
-            - name: Product
-              config:
-                keyFields:
-                  - id
-                fields:
-                  - name: id
-                    config:
-                      external: true
-            - name: Shop
-              config:
-                keyFields:
-                  - id
-                fields:
-                  - name: id
-                    config:
-                      external: true
-            - name: Customer
-              config:
-                keyFields:
-                  - id
-                fields:
-                  - name: id
-                    config:
-                      external: true
   - name: Shopservice
     handler:
       graphql:
@@ -47,12 +23,14 @@ sources:
               config:
                 keyFields:
                   - id
-            -  name: Product
-               config:
-                 keyFields:
-                   - id
-
-
+                resolveReference:
+                  queryFieldName: shop
+            - name: Product
+              config:
+                keyFields:
+                  - id
+                resolveReference:
+                  queryFieldName: product
   - name: Customerservice
     handler:
       graphql:
@@ -63,10 +41,11 @@ sources:
             - name: Query
               config:
                 extend: true
-
             - name: Customer
               config:
                 keyFields:
                   - id
+                resolveReference:
+                  queryFieldName: customer
 serve:
   playground: true

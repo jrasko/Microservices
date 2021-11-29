@@ -8,14 +8,14 @@ type Order{
   id: ID!
   time: SWTime!
   state: OrderState!
-  shopID: ID!
-  customerID: ID!
+  shop: Shop!
+  customer: Customer!
   products: [OrderProducts!]!
 }
 
 type OrderProducts{
   order: Order!
-  productId: ID!
+  product: Product!
   quantity: Int!
   price: Float!
 }
@@ -26,4 +26,14 @@ enum OrderState{
   DONE
   READY_FOR_PICK_UP
   RETRIEVED
+}
+
+extend type Product @key(fields: "id"){
+  id: ID! @external
+}
+extend type Shop @key(fields: "id"){
+  id: ID! @external
+}
+extend type Customer @key(fields: "id"){
+  id: ID! @external
 }
