@@ -48,6 +48,4 @@ sources:
                 resolveReference:
                   queryFieldName: customer
 serve:
-  playground: true
-  port: 4000
-  endpoint: /query
+  customServerHandler: ./app.js
