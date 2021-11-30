@@ -48,6 +48,6 @@ sources:
                 resolveReference:
                   queryFieldName: customer
 serve:
-  playground: false
+  playground: true
   port: 4000
   endpoint: /query
